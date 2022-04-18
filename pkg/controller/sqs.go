@@ -19,6 +19,7 @@ import (
 )
 
 var ErrMissingSQSClient error = errors.New("missing sqs client")
+var ErrMissingQueueURL error = errors.New("missing queue url")
 
 type Message struct {
 	Namespace string `json:"namespace"`

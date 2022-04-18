@@ -2,7 +2,6 @@ package controller
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"github.com/go-logr/logr"
@@ -35,7 +34,7 @@ func New(opts ...Option) (*Controller, error) {
 	}
 
 	if ctrl.queueURL == "" {
-		return nil, fmt.Errorf("missing queue url")
+		return nil, ErrMissingQueueURL
 	}
 	return ctrl, nil
 }
