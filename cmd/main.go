@@ -21,6 +21,7 @@ func main() {
 	ctx := signals.SetupSignalHandler()
 
 	var queueURL = flag.String("queue-url", "", "name of SQS queue to consume")
+	flag.Parse()
 
 	jsonEncoder := zapcore.NewJSONEncoder(zapcore.EncoderConfig{
 		NameKey:    "name",

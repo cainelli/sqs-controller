@@ -29,7 +29,7 @@ func (c *Controller) SQSWorker(ctx context.Context) error {
 	if c.sqscli == nil {
 		return ErrMissingSQSClient
 	}
-	ticker := time.NewTicker(time.Second)
+	ticker := time.NewTicker(30 * time.Second)
 	log := runtimeLog.Log.WithName("sqs-worker")
 	for {
 		select {
@@ -48,7 +48,7 @@ func (c *Controller) SQSWorker(ctx context.Context) error {
 			for _, m := range output.Messages {
 				var message Message
 				if err := json.Unmarshal([]byte(*m.Body), &message); err != nil {
-					log.Error(err, "could not serialize message body %q", *m.Body)
+					log.Error(err, "could not deserialize message %q", *m.Body)
 					continue
 				}
 				c.ch <- event.GenericEvent{Object: &corev1.Namespace{
